@@ -1,0 +1,79 @@
+
+#include<bits/stdc++.h>
+typedef long long int ll;
+typedef unsigned long long int ull;
+using namespace std;
+bool sortByVal(const pair<string, int> &a,
+               const pair<string, int> &b)
+{
+    return (a.second > b.second);
+}
+
+main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+
+    int t=1;
+    //cin>>t;
+    while(t--)
+    {
+        ll n,m,x,y,sum=0,cnt = 0;
+        cin>>n>>m;
+        int ar[n+3];
+        map<int,int>mp;
+        for(int i=0;i<n;i++)
+        {
+            cin>>ar[i];
+            mp[ar[i]]++;
+        }
+        sort(ar,ar+n);
+        vector<string>vs(m);
+        map<string,int>mps;
+        for(int i=0;i<m;i++)
+        {
+            cin>>vs[i];
+            mps[vs[i]]++;
+
+        }
+        vector<pair<string, int>> vec;
+
+      map<string, int> :: iterator it2;
+     for (it2=mps.begin(); it2!=mps.end(); it2++)
+      {
+         vec.push_back(make_pair(it2->first, it2->second));
+      }
+
+      sort(vec.begin(), vec.end(), sortByVal);
+
+
+
+      int mincost=0,xx,yy,maxcost=0;
+      yy=m;
+      for(int i=0;i<m;i++)
+      {
+          xx=vec[i].second;
+          mincost+=ar[i]*xx;
+          m=m-xx+1;
+          
+
+      }
+
+      m=yy;
+       for(int i=0;i<m;i++)
+      {
+          xx=vec[i].second;
+          maxcost += ar[n-1-i]*xx;
+          m=m-xx+1;
+          
+
+      }
+      cout<<mincost<<" "<<maxcost<<endl;
+
+
+
+
+    }
+
+    return 0;
+}
